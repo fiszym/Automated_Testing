@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
-
+export const url = 'https://demo-bank.vercel.app/';
+export const userId = 'tester12';
+export const userPwd = 'pwd12345';
 test.describe('User login to Demobank', () => {
   test('login with correct credentials', async ({ page }) => {
     //Arrange
-    const url = 'https://demo-bank.vercel.app/';
-    const userId = 'tester12';
-    const userPwd = 'pwd12345';
+
     const expectedUser = 'Jan Demobankowy';
 
     //Act
@@ -18,9 +18,9 @@ test.describe('User login to Demobank', () => {
     await expect(page.getByTestId('user-name')).toHaveText(expectedUser);
   });
 
-  test('unsuccesful login with short login', async ({ page }) => {
+  test('unsuccessful login with short login', async ({ page }) => {
     await page.goto(url);
-    await page.getByTestId('login-input').fill(userId);
+    await page.getByTestId('login-input').fill('1234567');
     await page.getByTestId('password-input').click();
 
     //Assert
@@ -29,7 +29,7 @@ test.describe('User login to Demobank', () => {
     );
   });
 
-  test('unsuccesful login with short pwd', async ({ page }) => {
+  test('unsuccessful login with short pwd', async ({ page }) => {
     await page.goto(url);
     await page.getByTestId('login-input').fill(userId);
     await page.getByTestId('password-input').fill('1234567');

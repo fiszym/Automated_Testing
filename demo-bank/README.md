@@ -16,6 +16,8 @@
   `npx playwright test --headed`
 - view report  
   `npx playwright show-report`
+- run Trace Viewer on zip file  
+   `npx playwright show-trace trace.zip`
 
 ## Visual Studio Code
 

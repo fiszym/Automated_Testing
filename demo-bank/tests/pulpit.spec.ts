@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Pulpit tests', () => {
-  const url = 'https://demo-bank.vercel.app/';
-  const userId = 'tester12';
-  const userPwd = 'pwd12345';
-
   test('Successful transfer', async ({ page }) => {
     //Arrange
+    const url = 'https://demo-bank.vercel.app/';
+    const userId = 'tester12';
+    const userPwd = 'pwd12345';
 
     const transferTitle = 'Zwrot';
     const transferAmount = '100';
@@ -33,6 +32,11 @@ test.describe('Pulpit tests', () => {
   });
 
   test('Successful moble topup', async ({ page }) => {
+    //Arrange
+    const url = 'https://demo-bank.vercel.app/';
+    const userId = 'tester12';
+    const userPwd = 'pwd12345';
+
     //Act
     await page.goto(url);
     await page.getByTestId('login-input').fill(userId);
