@@ -3,20 +3,30 @@ import { test, expect } from '@playwright/test';
 test.describe('Pulpit tests', () => {
 
     test('Successful transfer', async ({ page }) => {
-        await page.goto('https://demo-bank.vercel.app/');
-        await page.getByTestId('login-input').fill('tester12');
-        await page.getByTestId('password-input').fill('pwd12345');
+        //Arrange
+        const url = 'https://demo-bank.vercel.app/';
+        const userId = 'tester12';
+        const userPwd = 'pwd12345';
+        const transferTitle = 'Zwrot';
+        const transferAmount = '100';
+        const receiverId = '2';
+        const expectedReceiverName = 'Chuck Demobankowy';
+
+        //Act
+        await page.goto(url);
+        await page.getByTestId('login-input').fill(userId);
+        await page.getByTestId('password-input').fill(userPwd);
         await page.getByTestId('login-button').click();
 
-        await page.locator('#widget_1_transfer_receiver').selectOption('2');
-        await page.locator('#widget_1_transfer_amount').fill('100');
-        await page.locator('#widget_1_transfer_title').fill('Zwrot');
+        await page.locator('#widget_1_transfer_receiver').selectOption(receiverId);
+        await page.locator('#widget_1_transfer_amount').fill(transferAmount);
+        await page.locator('#widget_1_transfer_title').fill(transferTitle);
 
         await page.getByRole('button', { name: 'wykonaj' }).click();
         await page.getByTestId('close-button').click();
 
         //Assert
-        await expect(page.locator('#show_messages')).toHaveText('Przelew wykonany! Chuck Demobankowy - 100,00PLN - Zwrot');
+        await expect(page.locator('#show_messages')).toHaveText(`Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`);
 
     });
 
