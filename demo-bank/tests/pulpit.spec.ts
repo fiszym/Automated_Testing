@@ -1,51 +1,54 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Pulpit tests', () => {
+  const url = 'https://demo-bank.vercel.app/';
+  const userId = 'tester12';
+  const userPwd = 'pwd12345';
 
-    test('Successful transfer', async ({ page }) => {
-        //Arrange
-        const url = 'https://demo-bank.vercel.app/';
-        const userId = 'tester12';
-        const userPwd = 'pwd12345';
-        const transferTitle = 'Zwrot';
-        const transferAmount = '100';
-        const receiverId = '2';
-        const expectedReceiverName = 'Chuck Demobankowy';
+  test('Successful transfer', async ({ page }) => {
+    //Arrange
 
-        //Act
-        await page.goto(url);
-        await page.getByTestId('login-input').fill(userId);
-        await page.getByTestId('password-input').fill(userPwd);
-        await page.getByTestId('login-button').click();
+    const transferTitle = 'Zwrot';
+    const transferAmount = '100';
+    const receiverId = '2';
+    const expectedReceiverName = 'Chuck Demobankowy';
 
-        await page.locator('#widget_1_transfer_receiver').selectOption(receiverId);
-        await page.locator('#widget_1_transfer_amount').fill(transferAmount);
-        await page.locator('#widget_1_transfer_title').fill(transferTitle);
+    //Act
+    await page.goto(url);
+    await page.getByTestId('login-input').fill(userId);
+    await page.getByTestId('password-input').fill(userPwd);
+    await page.getByTestId('login-button').click();
 
-        await page.getByRole('button', { name: 'wykonaj' }).click();
-        await page.getByTestId('close-button').click();
+    await page.locator('#widget_1_transfer_receiver').selectOption(receiverId);
+    await page.locator('#widget_1_transfer_amount').fill(transferAmount);
+    await page.locator('#widget_1_transfer_title').fill(transferTitle);
 
-        //Assert
-        await expect(page.locator('#show_messages')).toHaveText(`Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`);
+    await page.getByRole('button', { name: 'wykonaj' }).click();
+    await page.getByTestId('close-button').click();
 
-    });
+    //Assert
+    await expect(page.locator('#show_messages')).toHaveText(
+      `Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`,
+    );
+  });
 
-    test('Successful moble topup', async ({ page }) => {
-        await page.goto('https://demo-bank.vercel.app/');
-        await page.getByTestId('login-input').fill('tester12');
-        await page.getByTestId('password-input').fill('pwd12345');
-        await page.getByTestId('login-button').click();
+  test('Successful moble topup', async ({ page }) => {
+    //Act
+    await page.goto(url);
+    await page.getByTestId('login-input').fill(userId);
+    await page.getByTestId('password-input').fill(userPwd);
+    await page.getByTestId('login-button').click();
 
-        await page.locator('#widget_1_topup_receiver').selectOption('502 xxx xxx');
-        await page.locator('#widget_1_topup_amount').fill('25');
-        await page.locator('#uniform-widget_1_topup_agreement span').click();
+    await page.locator('#widget_1_topup_receiver').selectOption('502 xxx xxx');
+    await page.locator('#widget_1_topup_amount').fill('25');
+    await page.locator('#uniform-widget_1_topup_agreement span').click();
 
-        await page.getByRole('button', { name: 'doładuj telefon' }).click();
-        await page.getByTestId('close-button').click();
+    await page.getByRole('button', { name: 'doładuj telefon' }).click();
+    await page.getByTestId('close-button').click();
 
-        //Assert
-        await expect(page.locator('#show_messages')).toHaveText('Doładowanie wykonane! 25,00PLN na numer 502 xxx xxx');
-
-    });
-
+    //Assert
+    await expect(page.locator('#show_messages')).toHaveText(
+      'Doładowanie wykonane! 25,00PLN na numer 502 xxx xxx',
+    );
+  });
 });
