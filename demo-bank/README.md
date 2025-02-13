@@ -62,6 +62,7 @@
   - enable trace/video on fail
   ```javascript
   use {
+    baseURL: 'https://demo-bank.vercel.app',
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
     }
@@ -118,7 +119,7 @@
   - set rules in `.prettierrc.json`
     ```
     {
-        "singleQuote": true, 
+        "singleQuote": true,
         "endOfLine": auto
     }
     ```
