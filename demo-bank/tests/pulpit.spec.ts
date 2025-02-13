@@ -35,7 +35,8 @@ test.describe('Pulpit tests', () => {
     const topupAmount = '25';
     const topupReceiver = '502 xxx xxx';
     const expectedTopupMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${topupReceiver}`;
-
+    const initalBalance = await page.locator('#money_value').innerText();
+    const expectedBalance = Number(initalBalance) - Number(topupAmount);
     //Act
 
     await page.locator('#widget_1_topup_receiver').selectOption(topupReceiver);
@@ -49,5 +50,6 @@ test.describe('Pulpit tests', () => {
     await expect(page.locator('#show_messages')).toHaveText(
       expectedTopupMessage,
     );
+    await expect(page.locator('#money_value')).toHaveText(`${expectedBalance}`);
   });
 });
