@@ -59,6 +59,13 @@
   //   },
   // },
   ```
+  - enable trace/video on fail
+  ```javascript
+  use {
+    trace: 'retain-on-failure',
+    video: 'retain-on-failure',
+    }
+  ```
 
 ### Playwright snippets
 
@@ -111,10 +118,11 @@
   - set rules in `.prettierrc.json`
     ```
     {
-        "singleQuote": true
+        "singleQuote": true, 
+        "endOfLine": auto
     }
     ```
 
 - run Prettier  
   `npx prettier --write .`
-- additionaly you can install VSC extension: **Prettier**
+- additionaly, VSC extension: **Prettier**

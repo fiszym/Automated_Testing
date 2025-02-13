@@ -37,14 +37,17 @@ test.describe('Pulpit tests', () => {
     const userId = 'tester12';
     const userPwd = 'pwd12345';
 
+    const topupAmount = '25';
+    const topupReceiver = '502 xxx xxx';
+    const expectedTopupMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${topupReceiver}`;
     //Act
     await page.goto(url);
     await page.getByTestId('login-input').fill(userId);
     await page.getByTestId('password-input').fill(userPwd);
     await page.getByTestId('login-button').click();
 
-    await page.locator('#widget_1_topup_receiver').selectOption('502 xxx xxx');
-    await page.locator('#widget_1_topup_amount').fill('25');
+    await page.locator('#widget_1_topup_receiver').selectOption(topupReceiver);
+    await page.locator('#widget_1_topup_amount').fill(topupAmount);
     await page.locator('#uniform-widget_1_topup_agreement span').click();
 
     await page.getByRole('button', { name: 'doładuj telefon' }).click();
@@ -52,7 +55,7 @@ test.describe('Pulpit tests', () => {
 
     //Assert
     await expect(page.locator('#show_messages')).toHaveText(
-      'Doładowanie wykonane! 25,00PLN na numer 502 xxx xxx',
+      expectedTopupMessage,
     );
   });
 });
