@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    const url = 'https://demo-bank.vercel.app/';
     const userId = 'tester12';
     const userPwd = 'pwd12345';
-    await page.goto(url);
+
+    await page.goto('/');
     await page.getByTestId('login-input').fill(userId);
     await page.getByTestId('password-input').fill(userPwd);
     await page.getByTestId('login-button').click();
@@ -23,7 +23,6 @@ test.describe('Pulpit tests', () => {
     await page.locator('#widget_1_transfer_title').fill(transferTitle);
 
     await page.getByRole('button', { name: 'wykonaj' }).click();
-    await page.getByTestId('close-button').click();
 
     //Assert
     await expect(page.locator('#show_messages')).toHaveText(
@@ -32,12 +31,11 @@ test.describe('Pulpit tests', () => {
   });
 
   test('Successful moble topup', async ({ page }) => {
-
     //Arrange
     const topupAmount = '25';
     const topupReceiver = '502 xxx xxx';
     const expectedTopupMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${topupReceiver}`;
-   
+
     //Act
 
     await page.locator('#widget_1_topup_receiver').selectOption(topupReceiver);
