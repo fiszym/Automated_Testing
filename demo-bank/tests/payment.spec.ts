@@ -27,6 +27,7 @@ test.describe('Payment tests', async () => {
     const transferTitle = 'Tytuł';
     const expectedMsg = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
 
+    
     //Act
     await page.getByTestId('transfer_receiver').fill(transferReceiver);
     await page.getByTestId('form_account_to').fill(transferAccount);
