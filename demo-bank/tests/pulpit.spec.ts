@@ -1,15 +1,20 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
+    //Arrange
     const userId = loginData.userId;
     const userPwd = loginData.userPwd;
 
+    const loginPage = new LoginPage(page);
+
+    //Act
     await page.goto('/');
-    await page.getByTestId('login-input').fill(userId);
-    await page.getByTestId('password-input').fill(userPwd);
-    await page.getByTestId('login-button').click();
+    await loginPage.loginInput.fill(userId);
+    await loginPage.passwordInput.fill(userPwd);
+    await loginPage.loginButton.click();
   });
   test('Successful transfer', async ({ page }) => {
     //Arrange
