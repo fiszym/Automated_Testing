@@ -2,20 +2,12 @@ import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
 import { PulpitPage } from '../pages/pulpit.page';
+import { loginToService } from '../helper/login.helper';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    //Arrange
-    const userId = loginData.userId;
-    const userPwd = loginData.userPwd;
-
-    const loginPage = new LoginPage(page);
-
     //Act
-    await page.goto('/');
-    await loginPage.loginInput.fill(userId);
-    await loginPage.passwordInput.fill(userPwd);
-    await loginPage.loginButton.click();
+    await loginToService(page, loginData.userId, loginData.userPwd);
   });
   test('Successful transfer', async ({ page }) => {
     //Arrange
@@ -40,7 +32,7 @@ test.describe('Pulpit tests', () => {
   });
 
   test('Successful moble topup', async ({ page }) => {
-//Flaky test. Test with tendency to fail, despite proper construction
+    //Flaky test. Test with tendency to fail, despite proper construction
 
     //Arrange
     const topupAmount = '25';
