@@ -1,27 +1,17 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
-import { LoginPage } from '../pages/login.page';
 import { PulpitPage } from '../pages/pulpit.page';
 import { PaymentPage } from '../pages/payment.page';
+import { loginToService } from '../helper/login.helper';
 
 test.describe('Payment tests', async () => {
   test.beforeEach(async ({ page }) => {
-    const userId = loginData.userId;
-    const userPwd = loginData.userPwd;
-
-    const loginPage = new LoginPage(page);
+    //Arrange
     const paymentPage = new PaymentPage(page);
+
     // Act
-    await page.goto('/');
-
-    //Act
-    await loginPage.loginInput.fill(userId);
-    await loginPage.passwordInput.fill(userPwd);
-    await loginPage.loginButton.click();
-
+    await loginToService(page, loginData.userId, loginData.userPwd);
     await paymentPage.payment.click();
-
-    // await page.getByRole('link', { name: 'płatności' }).click();
   });
 
   test('simple payment', async ({ page }) => {
