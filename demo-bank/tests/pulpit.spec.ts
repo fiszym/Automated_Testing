@@ -40,6 +40,8 @@ test.describe('Pulpit tests', () => {
   });
 
   test('Successful moble topup', async ({ page }) => {
+//Flaky test. Test with tendency to fail, despite proper construction
+
     //Arrange
     const topupAmount = '25';
     const topupReceiver = '502 xxx xxx';

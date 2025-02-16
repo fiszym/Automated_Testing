@@ -39,9 +39,6 @@ test.describe('User login to Demobank', () => {
 
     //Assert
     await expect(loginPage.loginError).toHaveText(expectedErrorMsg);
-    // // await expect(page.getByTestId('error-login-id')).toHaveText(
-    //   expectedErrorMsg,
-    // );
   });
 
   test('unsuccessful login with short pwd', async ({ page }) => {
@@ -59,8 +56,5 @@ test.describe('User login to Demobank', () => {
 
     //Assert
     await expect(loginPage.pwdError).toHaveText(expectedErrorMsg);
-    // await expect(page.getByTestId('error-login-password')).toHaveText(
-    //   expectedErrorMsg,
-    // );
   });
 });
