@@ -14,9 +14,7 @@ test.describe('User login to Demobank', () => {
 
   test('login with correct credentials', async ({ page }) => {
     //Arrange
-
     const expectedUser = 'Jan Demobankowy';
-
     const pulpitPage = new PulpitPage(page);
 
     //Act
@@ -32,6 +30,7 @@ test.describe('User login to Demobank', () => {
     const expectedErrorMsg = 'identyfikator ma min. 8 znaków';
 
     //Act
+
     await loginPage.loginInput.fill(incorrectUserId);
     await loginPage.passwordInput.click();
 

@@ -5,13 +5,14 @@ import { PaymentPage } from '../pages/payment.page';
 import { loginToService } from '../helper/login.helper';
 
 test.describe('Payment tests', async () => {
-  let pulpitPage: PulpitPage;
+  let paymentPage: PaymentPage;
 
   test.beforeEach(async ({ page }) => {
     //Arrange
-    pulpitPage = new PulpitPage(page);
+    const pulpitPage = new PulpitPage(page);
 
     // Act
+    paymentPage = new PaymentPage(page);
     await loginToService(page, loginData.userId, loginData.userPwd);
     await pulpitPage.sideMenu.payment.click();
   });
@@ -23,17 +24,16 @@ test.describe('Payment tests', async () => {
     const transferAmount = '123';
     const transferTitle = 'Tytuł';
     const expectedMsg = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
-    const paymentPage = new PaymentPage(page);
 
     //Act
-    await paymentPage.transferReceiverInput.fill(transferReceiver);
-    await paymentPage.transferAccount.fill(transferAccount);
-    await paymentPage.transferAmount.fill(transferAmount);
-    await paymentPage.transferTitle.fill(transferTitle);
-    await paymentPage.transferButton.click();
-    await paymentPage.closeButton.click();
+    await paymentPage.simplePayment(
+      transferReceiver,
+      transferAccount,
+      transferAmount,
+      transferTitle,
+    );
 
     //Assert
-    await expect(pulpitPage.message).toHaveText(expectedMsg);
+    await expect(paymentPage.message).toHaveText(expectedMsg);
   });
 });
