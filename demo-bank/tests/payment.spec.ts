@@ -7,11 +7,11 @@ import { loginToService } from '../helper/login.helper';
 test.describe('Payment tests', async () => {
   test.beforeEach(async ({ page }) => {
     //Arrange
-    const paymentPage = new PaymentPage(page);
+    const pulpitPage = new PulpitPage(page);
 
     // Act
     await loginToService(page, loginData.userId, loginData.userPwd);
-    await paymentPage.payment.click();
+    await pulpitPage.sideMenu.payment.click();
   });
 
   test('simple payment', async ({ page }) => {
@@ -21,9 +21,9 @@ test.describe('Payment tests', async () => {
     const transferAmount = '123';
     const transferTitle = 'Tytuł';
     const expectedMsg = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
-
-    const paymentPage = new PaymentPage(page);
     const pulpitPage = new PulpitPage(page);
+    const paymentPage = new PaymentPage(page);
+
     //Act
     await paymentPage.transferReceiverInput.fill(transferReceiver);
     await paymentPage.transferAccount.fill(transferAccount);
