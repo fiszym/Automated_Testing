@@ -26,18 +26,11 @@ test.describe('Payment tests', async () => {
     const pulpitPage = new PulpitPage(page);
     //Act
     await paymentPage.transferReceiverInput.fill(transferReceiver);
-    // await page.getByTestId('transfer_receiver').fill(transferReceiver);
-
     await paymentPage.transferAccount.fill(transferAccount);
-    // await page.getByTestId('form_account_to').fill(transferAccount);
     await paymentPage.transferAmount.fill(transferAmount);
-    // await page.getByTestId('form_amount').fill(transferAmount);
     await paymentPage.transferTitle.fill(transferTitle);
-    // await page.getByTestId('form_title').fill(transferTitle);
     await paymentPage.transferButton.click();
-    // await page.getByRole('button', { name: 'wykonaj przelew' }).click();
     await paymentPage.closeButton.click();
-    // await page.getByTestId('close-button').click();
 
     //Assert
     await expect(pulpitPage.message).toHaveText(expectedMsg);
