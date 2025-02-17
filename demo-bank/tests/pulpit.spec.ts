@@ -5,9 +5,12 @@ import { PulpitPage } from '../pages/pulpit.page';
 import { loginToService } from '../helper/login.helper';
 
 test.describe('Pulpit tests', () => {
+  let pulpitPage: PulpitPage;
+
   test.beforeEach(async ({ page }) => {
     //Act
     await loginToService(page, loginData.userId, loginData.userPwd);
+    pulpitPage = new PulpitPage(page);
   });
   test('Successful transfer', async ({ page }) => {
     //Arrange
@@ -16,7 +19,6 @@ test.describe('Pulpit tests', () => {
     const receiverId = '2';
     const expectedReceiverName = 'Chuck Demobankowy';
 
-    const pulpitPage = new PulpitPage(page);
     //Act
 
     await pulpitPage.transferReceiver.selectOption(receiverId);
@@ -39,7 +41,6 @@ test.describe('Pulpit tests', () => {
     const topupReceiver = '502 xxx xxx';
     const expectedTopupMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${topupReceiver}`;
 
-    const pulpitPage = new PulpitPage(page);
     const initalBalance = await pulpitPage.moneyValue.innerText();
     const expectedBalance = Number(initalBalance) - Number(topupAmount);
     //Act

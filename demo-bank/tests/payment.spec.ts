@@ -5,9 +5,11 @@ import { PaymentPage } from '../pages/payment.page';
 import { loginToService } from '../helper/login.helper';
 
 test.describe('Payment tests', async () => {
+  let pulpitPage: PulpitPage;
+
   test.beforeEach(async ({ page }) => {
     //Arrange
-    const pulpitPage = new PulpitPage(page);
+    pulpitPage = new PulpitPage(page);
 
     // Act
     await loginToService(page, loginData.userId, loginData.userPwd);
@@ -21,7 +23,6 @@ test.describe('Payment tests', async () => {
     const transferAmount = '123';
     const transferTitle = 'Tytuł';
     const expectedMsg = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
-    const pulpitPage = new PulpitPage(page);
     const paymentPage = new PaymentPage(page);
 
     //Act
