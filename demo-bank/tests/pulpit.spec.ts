@@ -13,7 +13,7 @@ test.describe('Pulpit tests', () => {
     pulpitPage = new PulpitPage(page);
   });
   test('Successful transfer', async ({ page }) => {
-    //Flaky test. Test with tendency to fail, despite proper construction
+    //Flaky test: 1/10 fail on first only
     //Arrange
     const transferTitle = 'Zwrot';
     const transferAmount = '100';
@@ -24,14 +24,14 @@ test.describe('Pulpit tests', () => {
     await pulpitPage.quickTransfer(receiverId, transferAmount, transferTitle);
 
     //Assert
+
     await expect(pulpitPage.message).toHaveText(
       `Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`,
     );
   });
 
   test('Successful moble topup', async ({ page }) => {
-    //Flaky test. Test with tendency to fail, despite proper construction
-
+    //Flaky test: 1/10 fail on first only
     //Arrange
     const topupAmount = '25';
     const topupReceiver = '502 xxx xxx';
@@ -44,6 +44,7 @@ test.describe('Pulpit tests', () => {
     await pulpitPage.topup(topupReceiver, topupAmount);
 
     //Assert
+    await page.waitForLoadState('domcontentloaded'); // wait for all DOM content loaded
     await expect(pulpitPage.message).toHaveText(expectedTopupMessage);
     await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
   });
