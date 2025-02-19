@@ -13,6 +13,7 @@ test.describe('Pulpit tests', () => {
     pulpitPage = new PulpitPage(page);
   });
   test('Successful transfer', async ({ page }) => {
+    //Flaky test. Test with tendency to fail, despite proper construction
     //Arrange
     const transferTitle = 'Zwrot';
     const transferAmount = '100';
@@ -45,11 +46,7 @@ test.describe('Pulpit tests', () => {
     const expectedBalance = Number(initalBalance) - Number(topupAmount);
     //Act
 
-    await pulpitPage.topupReceiver.selectOption(topupReceiver);
-    await pulpitPage.topupAmount.fill(topupAmount);
-    await pulpitPage.topupAgreement.click();
-    await pulpitPage.topupButton.click();
-    await pulpitPage.closeButton.click();
+    await pulpitPage.topup(topupReceiver, topupAmount);
 
     //Assert
     await expect(pulpitPage.message).toHaveText(expectedTopupMessage);
