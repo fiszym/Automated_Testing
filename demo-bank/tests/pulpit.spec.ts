@@ -21,12 +21,13 @@ test.describe('Pulpit tests', () => {
     const expectedReceiverName = 'Chuck Demobankowy';
 
     //Act
+    await pulpitPage.quickTransfer(receiverId, transferAmount, transferTitle);
 
-    await pulpitPage.transferReceiver.selectOption(receiverId);
-    await pulpitPage.transferAmount.fill(transferAmount);
-    await pulpitPage.transferTitle.fill(transferTitle);
-    await pulpitPage.transferButton.click();
-    await pulpitPage.closeButton.click();
+    // await pulpitPage.transferReceiver.selectOption(receiverId);
+    // await pulpitPage.transferAmount.fill(transferAmount);
+    // await pulpitPage.transferTitle.fill(transferTitle);
+    // await pulpitPage.transferButton.click();
+    // await pulpitPage.closeButton.click();
 
     //Assert
     await expect(pulpitPage.message).toHaveText(
