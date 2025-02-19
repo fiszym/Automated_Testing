@@ -23,12 +23,6 @@ test.describe('Pulpit tests', () => {
     //Act
     await pulpitPage.quickTransfer(receiverId, transferAmount, transferTitle);
 
-    // await pulpitPage.transferReceiver.selectOption(receiverId);
-    // await pulpitPage.transferAmount.fill(transferAmount);
-    // await pulpitPage.transferTitle.fill(transferTitle);
-    // await pulpitPage.transferButton.click();
-    // await pulpitPage.closeButton.click();
-
     //Assert
     await expect(pulpitPage.message).toHaveText(
       `Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`,
