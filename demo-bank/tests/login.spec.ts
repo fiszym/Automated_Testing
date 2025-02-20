@@ -14,7 +14,13 @@ test.describe('Login to Demobank', () => {
 
   test(
     'login - correct credentials',
-    { tag: ['@login', '@smoke'] },
+    {
+      tag: ['@login', '@smoke'],
+      annotation: {
+        type: 'Positive path',
+        description: 'Basic positive test for login',
+      },
+    },
     async ({ page }) => {
       //Arrange
       const expectedUser = 'Jan Demobankowy';
@@ -30,7 +36,13 @@ test.describe('Login to Demobank', () => {
 
   test(
     'unsuccessful login - short login',
-    { tag: ['@login', '@negative'] },
+    {
+      tag: ['@login', '@negative'],
+      annotation: {
+        type: 'Negative path',
+        description: 'Login with less than 8 characters',
+      },
+    },
     async ({ page }) => {
       //Arrange
       const incorrectUserId = '1234567';
@@ -48,7 +60,13 @@ test.describe('Login to Demobank', () => {
 
   test(
     'unsuccessful login - short pwd',
-    { tag: ['@login', '@negative'] },
+    {
+      tag: ['@login', '@negative'],
+      annotation: {
+        type: 'Negative path',
+        description: 'Password with less than 8 characters',
+      },
+    },
     async ({ page }) => {
       //Arrange
       const incorrectUserPwd = '1234567';

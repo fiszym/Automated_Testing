@@ -5,6 +5,8 @@ import { loginToService } from '../helper/login.helper';
 
 test.describe('Pulpit tests', () => {
   let pulpitPage: PulpitPage;
+  // All tests in this describe group will get 3 retry attempts.
+  test.describe.configure({ retries: 3 });
 
   test.beforeEach(async ({ page }) => {
     //Act
@@ -13,9 +15,21 @@ test.describe('Pulpit tests', () => {
   });
   test(
     'successful transfer',
-    { tag: ['@pulpit', '@integratoin'] },
-    async ({ page }) => {
-      //Flaky test: 1/10 fail on first only
+    {
+      tag: ['@pulpit', '@integratoin'],
+      annotation: [
+        {
+          type: 'Positive path',
+          description: 'Quick transfer',
+        },
+        {
+          type: 'Flaky test',
+          description:
+            'Fail on first run only, due to instability of application (Jira: #1234 www.examplejira.com/issue=1234)',
+        },
+      ],
+    },
+    async ({ page }, testInfo) => {
       //Arrange
       const transferTitle = 'Zwrot';
       const transferAmount = '100';
@@ -26,7 +40,7 @@ test.describe('Pulpit tests', () => {
       await pulpitPage.quickTransfer(receiverId, transferAmount, transferTitle);
 
       //Assert
-
+      // if (testInfo.retry) await page.waitForLoadState('domcontentloaded'); // wait for all DOM content loaded
       await expect(pulpitPage.message).toHaveText(
         `Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`,
       );
@@ -35,7 +49,20 @@ test.describe('Pulpit tests', () => {
 
   test(
     'successful moble topup',
-    { tag: ['@pulpit', '@integration'] },
+    {
+      tag: ['@pulpit', '@integration'],
+      annotation: [
+        {
+          type: 'Positive path',
+          description: 'Quick mobile topup',
+        },
+        {
+          type: 'Flaky test',
+          description:
+            'Fail on first run only, due to instability of application (Jira: #1235 www.examplejira.com/issue=1235)',
+        },
+      ],
+    },
     async ({ page }) => {
       //Flaky test: 1/10 fail on first only
       //Arrange
@@ -50,7 +77,7 @@ test.describe('Pulpit tests', () => {
       await pulpitPage.topup(topupReceiver, topupAmount);
 
       //Assert
-      await page.waitForLoadState('domcontentloaded'); // wait for all DOM content loaded
+
       await expect(pulpitPage.message).toHaveText(expectedTopupMessage);
       await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
     },

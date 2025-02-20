@@ -19,7 +19,10 @@ test.describe('Payment tests', async () => {
 
   test(
     'simple payment',
-    { tag: ['@payment', '@integration'] },
+    {
+      tag: ['@payment', '@integration'],
+      annotation: { type: 'Positive path', description: 'Simple payment' },
+    },
     async ({ page }) => {
       //Arrange
       const transferReceiver = 'Jan Nowak';
