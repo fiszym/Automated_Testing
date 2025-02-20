@@ -13,7 +13,7 @@ test.describe('Pulpit tests', () => {
   });
   test(
     'successful transfer',
-    { tag: ['@pulpit, @integratoin'] },
+    { tag: ['@pulpit', '@integratoin'] },
     async ({ page }) => {
       //Flaky test: 1/10 fail on first only
       //Arrange
@@ -35,7 +35,7 @@ test.describe('Pulpit tests', () => {
 
   test(
     'successful moble topup',
-    { tag: ['@pulpit, @integratoin'] },
+    { tag: ['@pulpit', '@integration'] },
     async ({ page }) => {
       //Flaky test: 1/10 fail on first only
       //Arrange

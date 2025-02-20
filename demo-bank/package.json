@@ -7,7 +7,8 @@
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:pulpit": "npx playwright test --grep \"@pulpit\"",
-    "test:login": "npx playwright test --grep \"@login\""
+    "test:login": "npx playwright test --grep \"@login\"",
+    "test:payment": "npx playwright test --grep \"@payment\""
   },
   "keywords": [],
   "author": "",
