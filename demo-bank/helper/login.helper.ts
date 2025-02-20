@@ -1,6 +1,5 @@
 import { Page } from '@playwright/test';
 import { LoginPage } from '../pages/login.page';
-import { loginData } from '../test-data/login.data';
 
 export const loginToService = async (
   page: Page,
