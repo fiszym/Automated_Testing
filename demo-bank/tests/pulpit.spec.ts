@@ -11,7 +11,7 @@ test.describe('Pulpit tests', () => {
     await loginToService(page, loginData.userId, loginData.userPwd);
     pulpitPage = new PulpitPage(page);
   });
-  test('Successful transfer', async ({ page }) => {
+  test('Successful transfer @pulpit @integratoin', async ({ page }) => {
     //Flaky test: 1/10 fail on first only
     //Arrange
     const transferTitle = 'Zwrot';
@@ -29,7 +29,7 @@ test.describe('Pulpit tests', () => {
     );
   });
 
-  test('Successful moble topup', async ({ page }) => {
+  test('Successful moble topup @pulpit @integratoin', async ({ page }) => {
     //Flaky test: 1/10 fail on first only
     //Arrange
     const topupAmount = '25';
