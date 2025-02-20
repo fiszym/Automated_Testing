@@ -4,7 +4,7 @@ import { LoginPage } from '../pages/login.page';
 import { PulpitPage } from '../pages/pulpit.page';
 import { loginToService } from '../helper/login.helper';
 
-test.describe('User login to Demobank', () => {
+test.describe('Login to Demobank', () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
@@ -12,47 +12,55 @@ test.describe('User login to Demobank', () => {
     loginPage = new LoginPage(page);
   });
 
-  test('login with correct credentials @login @smoke', async ({ page }) => {
-    //Arrange
-    const expectedUser = 'Jan Demobankowy';
-    const pulpitPage = new PulpitPage(page);
+  test(
+    'login - correct credentials',
+    { tag: ['@login', '@smoke'] },
+    async ({ page }) => {
+      //Arrange
+      const expectedUser = 'Jan Demobankowy';
+      const pulpitPage = new PulpitPage(page);
 
-    //Act
-    await loginToService(page, loginData.userId, loginData.userPwd);
+      //Act
+      await loginToService(page, loginData.userId, loginData.userPwd);
 
-    //Assert
-    await expect(pulpitPage.username).toHaveText(expectedUser);
-  });
+      //Assert
+      await expect(pulpitPage.username).toHaveText(expectedUser);
+    },
+  );
 
-  test('unsuccessful login with short login @login @negative', async ({
-    page,
-  }) => {
-    //Arrange
-    const incorrectUserId = '1234567';
-    const expectedErrorMsg = 'identyfikator ma min. 8 znaków';
+  test(
+    'unsuccessful login - short login',
+    { tag: ['@login', '@negative'] },
+    async ({ page }) => {
+      //Arrange
+      const incorrectUserId = '1234567';
+      const expectedErrorMsg = 'identyfikator ma min. 8 znaków';
 
-    //Act
+      //Act
 
-    await loginPage.loginInput.fill(incorrectUserId);
-    await loginPage.passwordInput.click();
+      await loginPage.loginInput.fill(incorrectUserId);
+      await loginPage.passwordInput.click();
 
-    //Assert
-    await expect(loginPage.loginError).toHaveText(expectedErrorMsg);
-  });
+      //Assert
+      await expect(loginPage.loginError).toHaveText(expectedErrorMsg);
+    },
+  );
 
-  test('unsuccessful login with short pwd  @login @negative', async ({
-    page,
-  }) => {
-    //Arrange
-    const incorrectUserPwd = '1234567';
-    const expectedErrorMsg = 'hasło ma min. 8 znaków';
+  test(
+    'unsuccessful login - short pwd',
+    { tag: ['@login', '@negative'] },
+    async ({ page }) => {
+      //Arrange
+      const incorrectUserPwd = '1234567';
+      const expectedErrorMsg = 'hasło ma min. 8 znaków';
 
-    //Act
-    await loginPage.loginInput.fill(loginData.userId);
-    await loginPage.passwordInput.fill(incorrectUserPwd);
-    await loginPage.passwordInput.blur();
+      //Act
+      await loginPage.loginInput.fill(loginData.userId);
+      await loginPage.passwordInput.fill(incorrectUserPwd);
+      await loginPage.passwordInput.blur();
 
-    //Assert
-    await expect(loginPage.pwdError).toHaveText(expectedErrorMsg);
-  });
+      //Assert
+      await expect(loginPage.pwdError).toHaveText(expectedErrorMsg);
+    },
+  );
 });
