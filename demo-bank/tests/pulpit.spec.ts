@@ -25,7 +25,7 @@ test.describe('Pulpit tests', () => {
         {
           type: 'Flaky test',
           description:
-            'Fail on first run only, due to instability of application (Jira: #1234 www.examplejira.com/issue=1234)',
+            'Fail due to instability of application (Jira: #1234 www.examplejira.com/issue=1234)',
         },
       ],
     },
@@ -40,7 +40,6 @@ test.describe('Pulpit tests', () => {
       await pulpitPage.quickTransfer(receiverId, transferAmount, transferTitle);
 
       //Assert
-      // if (testInfo.retry) await page.waitForLoadState('domcontentloaded'); // wait for all DOM content loaded
       await expect(pulpitPage.message).toHaveText(
         `Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`,
       );
@@ -59,12 +58,11 @@ test.describe('Pulpit tests', () => {
         {
           type: 'Flaky test',
           description:
-            'Fail on first run only, due to instability of application (Jira: #1235 www.examplejira.com/issue=1235)',
+            'Fail due to instability of application (Jira: #1235 www.examplejira.com/issue=1235)',
         },
       ],
     },
     async ({ page }) => {
-      //Flaky test: 1/10 fail on first only
       //Arrange
       const topupAmount = '25';
       const topupReceiver = '502 xxx xxx';
@@ -72,12 +70,11 @@ test.describe('Pulpit tests', () => {
 
       const initalBalance = await pulpitPage.moneyValue.innerText();
       const expectedBalance = Number(initalBalance) - Number(topupAmount);
-      //Act
 
+      //Act
       await pulpitPage.topup(topupReceiver, topupAmount);
 
       //Assert
-
       await expect(pulpitPage.message).toHaveText(expectedTopupMessage);
       await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
     },

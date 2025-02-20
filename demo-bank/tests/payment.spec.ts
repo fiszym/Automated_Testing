@@ -1,4 +1,4 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { PulpitPage } from '../pages/pulpit.page';
 import { PaymentPage } from '../pages/payment.page';
@@ -21,7 +21,17 @@ test.describe('Payment tests', async () => {
     'simple payment',
     {
       tag: ['@payment', '@integration'],
-      annotation: { type: 'Positive path', description: 'Simple payment' },
+      annotation: [
+        {
+          type: 'Positive path',
+          description: 'Simple payment',
+        },
+        {
+          type: 'Flaky test',
+          description:
+            'Fail due to instability of application (Jira: #1236 www.examplejira.com/issue=1236)',
+        },
+      ],
     },
     async ({ page }) => {
       //Arrange

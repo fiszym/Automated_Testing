@@ -49,7 +49,6 @@ test.describe('Login to Demobank', () => {
       const expectedErrorMsg = 'identyfikator ma min. 8 znaków';
 
       //Act
-
       await loginPage.loginInput.fill(incorrectUserId);
       await loginPage.passwordInput.click();
 
