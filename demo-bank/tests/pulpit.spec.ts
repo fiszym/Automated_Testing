@@ -16,7 +16,7 @@ test.describe('Pulpit tests', () => {
   test(
     'successful transfer',
     {
-      tag: ['@pulpit', '@integratoin'],
+      tag: ['@pulpit', '@integration'],
       annotation: [
         {
           type: 'Positive path',
