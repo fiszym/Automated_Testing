@@ -6,7 +6,7 @@
 
 ### Implemented: 
 - POM (Page Object Model)
-- Side Menu Compontn
+- Side Menu Component
 - AAA (Arrange Act Assert)
 - Tags & Labels
 - DRY (Don't Repeat Yourself)
