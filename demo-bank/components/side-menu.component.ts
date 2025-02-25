@@ -4,6 +4,7 @@ export class SideMenuComponent {
   payment: Locator;
   myPulpit_quickTransfer: Locator;
   myPulpit_topup: Locator;
+  myPulpit_manager: Locator;
 
   constructor(private page: Page) {
     this.payment = this.page.getByRole('link', { name: 'płatności' });
@@ -12,6 +13,9 @@ export class SideMenuComponent {
     });
     this.myPulpit_topup = this.page.getByRole('link', {
       name: 'doładowanie telefonu',
+    });
+    this.myPulpit_manager = this.page.getByRole('link', {
+      name: 'manager finansowy',
     });
   }
 }

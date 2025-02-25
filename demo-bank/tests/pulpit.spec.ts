@@ -83,7 +83,7 @@ test.describe('Pulpit tests', () => {
   test(
     'successful sideBar transfer',
     {
-      tag: ['@pulpit', '@integration', '@sideBar'],
+      tag: ['@pulpit', '@sideBar'],
       annotation: [
         {
           type: 'Positive path',
@@ -121,7 +121,7 @@ test.describe('Pulpit tests', () => {
   test(
     'successful sideBar moble topup',
     {
-      tag: ['@pulpit', '@integration', '@sideBar'],
+      tag: ['@pulpit', '@sideBar'],
       annotation: [
         {
           type: 'Positive path',
@@ -140,14 +140,34 @@ test.describe('Pulpit tests', () => {
       const topupReceiver = '502 xxx xxx';
       const expectedTopupMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${topupReceiver}`;
 
-      const initalBalance = await pulpitPage.moneyValue.innerText();
-      const expectedBalance = Number(initalBalance) - Number(topupAmount);
-
       //Act
       await pulpitPage.sideBar_topup(topupReceiver, topupAmount);
 
       //Assert
       await expect(pulpitPage.message).toHaveText(expectedTopupMessage);
+    },
+  );
+  test(
+    'sideBar financial manager graph',
+    {
+      tag: ['@pulpit', '@sideBar'],
+      annotation: [
+        {
+          type: 'Positive path',
+          description: 'Corrcet graph for sideBar financial manager',
+        },
+      ],
+    },
+    async ({ page }) => {
+      //Arrange
+      const periodId = '1';
+
+      //Act
+      await pulpitPage.sideBar_manager(periodId);
+
+      //Assert
+      await expect(pulpitPage.financialGraph).toBeVisible();
+      //Checking visibility of the chart, not veryfying presented values
     },
   );
 });

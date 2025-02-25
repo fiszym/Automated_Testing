@@ -15,6 +15,8 @@ export class PulpitPage {
   closeButton: Locator;
   moneyValue: Locator;
   sideMenu: SideMenuComponent;
+  periodId: Locator;
+  financialGraph: Locator;
 
   constructor(private page: Page) {
     this.transferReceiver = this.page.locator('#widget_1_transfer_receiver');
@@ -34,6 +36,8 @@ export class PulpitPage {
     this.closeButton = this.page.getByTestId('close-button');
     this.moneyValue = this.page.locator('#money_value');
     this.sideMenu = new SideMenuComponent(this.page);
+    this.periodId = this.page.getByTestId('financial-manager-select');
+    this.financialGraph = this.page.locator('#widget_financial_manager_1');
   }
   async topup(topupReceiver: string, topupAmount: string): Promise<void> {
     await this.topupReceiver.selectOption(topupReceiver);
@@ -43,8 +47,11 @@ export class PulpitPage {
     await this.closeButton.click();
   }
 
-  async sideBar_topup(topupReceiver: string, topupAmount: string): Promise<void> {
-    await this.sideMenu.myPulpit_topup.click(); 
+  async sideBar_topup(
+    topupReceiver: string,
+    topupAmount: string,
+  ): Promise<void> {
+    await this.sideMenu.myPulpit_topup.click();
     await this.topupReceiver.selectOption(topupReceiver);
     await this.topupAmount.fill(topupAmount);
     await this.topupAgreement.click();
@@ -77,5 +84,8 @@ export class PulpitPage {
     await this.closeButton.click();
   }
 
-  // });
+  async sideBar_manager(periodId: string): Promise<void> {
+    await this.sideMenu.myPulpit_manager.click();
+    await this.periodId.selectOption(periodId);
+  }
 }
