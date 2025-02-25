@@ -15,7 +15,6 @@ export class PulpitPage {
   closeButton: Locator;
   moneyValue: Locator;
   sideMenu: SideMenuComponent;
-  sideBarButton_quickTransfer: Locator;
 
   constructor(private page: Page) {
     this.transferReceiver = this.page.locator('#widget_1_transfer_receiver');
@@ -35,9 +34,6 @@ export class PulpitPage {
     this.closeButton = this.page.getByTestId('close-button');
     this.moneyValue = this.page.locator('#money_value');
     this.sideMenu = new SideMenuComponent(this.page);
-    this.sideBarButton_quickTransfer = this.page.getByRole('link', {
-      name: 'szybki przelew',
-    });
   }
   async topup(topupReceiver: string, topupAmount: string): Promise<void> {
     await this.topupReceiver.selectOption(topupReceiver);
@@ -64,7 +60,7 @@ export class PulpitPage {
     transferAmount: string,
     transferTitle: string,
   ): Promise<void> {
-    await this.sideBarButton_quickTransfer.click();
+    await this.sideMenu.myPulpit_quickTransfer.click();
     await this.transferReceiver.selectOption(receiverId);
     await this.transferAmount.fill(transferAmount);
     await this.transferTitle.fill(transferTitle);
