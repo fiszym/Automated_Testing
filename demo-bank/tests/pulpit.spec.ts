@@ -79,6 +79,29 @@ test.describe('Pulpit tests', () => {
       await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
     },
   );
+  test(
+    'financial manager graph',
+    {
+      tag: ['@pulpit', '@integration'],
+      annotation: [
+        {
+          type: 'Positive path',
+          description: 'Present graph for financial manager',
+        },
+      ],
+    },
+    async ({ page }) => {
+      //Arrange
+      const periodId = '1';
+
+      //Act
+      await pulpitPage.manager(periodId);
+
+      //Assert
+      await expect(pulpitPage.financialGraph).toBeVisible();
+      //Checking visibility of the chart, not veryfying presented values
+    },
+  );
 
   test(
     'successful sideBar transfer',
@@ -154,7 +177,7 @@ test.describe('Pulpit tests', () => {
       annotation: [
         {
           type: 'Positive path',
-          description: 'Corrcet graph for sideBar financial manager',
+          description: 'Present graph for sideBar financial manager',
         },
       ],
     },

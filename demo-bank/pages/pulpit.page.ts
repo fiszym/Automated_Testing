@@ -83,7 +83,9 @@ export class PulpitPage {
     await this.transferButton.click();
     await this.closeButton.click();
   }
-
+  async manager(periodId: string): Promise<void> {
+    await this.periodId.selectOption(periodId);
+  }
   async sideBar_manager(periodId: string): Promise<void> {
     await this.sideMenu.myPulpit_manager.click();
     await this.periodId.selectOption(periodId);
