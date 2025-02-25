@@ -79,4 +79,42 @@ test.describe('Pulpit tests', () => {
       await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
     },
   );
+
+  test(
+    'successful sideBar transfer',
+    {
+      tag: ['@pulpit', '@integration', '@sideBar'],
+      annotation: [
+        {
+          type: 'Positive path',
+          description:
+            'Quick transfer from (sideBar) My Pulpit -> Quick Transfer',
+        },
+        {
+          type: 'Flaky test',
+          description:
+            'Fail due to instability of application (Jira: #1234 www.examplejira.com/issue=1235)',
+        },
+      ],
+    },
+    async ({ page }) => {
+      //Arrange
+      const transferTitle = 'Zwrot';
+      const transferAmount = '100';
+      const receiverId = '2';
+      const expectedReceiverName = 'Chuck Demobankowy';
+
+      //Act
+      await pulpitPage.sideBar_quickTransfer(
+        receiverId,
+        transferAmount,
+        transferTitle,
+      );
+
+      //Assert
+      await expect(pulpitPage.message).toHaveText(
+        `Przelew wykonany! ${expectedReceiverName} - ${transferAmount},00PLN - ${transferTitle}`,
+      );
+    },
+  );
 });
