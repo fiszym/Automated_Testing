@@ -5,6 +5,7 @@ export class SideMenuComponent {
   myPulpit_quickTransfer: Locator;
   myPulpit_topup: Locator;
   myPulpit_manager: Locator;
+  personalAccounts: Locator;
 
   constructor(private page: Page) {
     this.payment = this.page.getByRole('link', { name: 'płatności' });
@@ -16,6 +17,9 @@ export class SideMenuComponent {
     });
     this.myPulpit_manager = this.page.getByRole('link', {
       name: 'manager finansowy',
+    });
+    this.personalAccounts = this.page.getByRole('link', {
+      name: 'konta osobiste',
     });
   }
 }
