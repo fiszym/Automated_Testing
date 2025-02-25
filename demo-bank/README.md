@@ -91,6 +91,11 @@
 - `getByTestId` i.e. `getByTestId('login-input')` for element with `data-testid="login-input"`
 - `getByRole` i.e. `getByRole('button', { name: 'wykonaj' })`
 - `locator` i.e. `locator('#some-id')` for element with attribute `id="some-id"`, `#some-id` is `css` selector
+- `.filter` i.e `.filter({has Text: ''})` for aggregation lists
+- `.first()` for choosing first locator from many of the same name
+locator('#aggregation_list div')
+      .filter({ hasText: 'saldo' })
+      .first();
 
 ## Others
 
@@ -99,7 +104,6 @@
 - open DevTools <kbd>F12</kbd> or right click `Inspect`
 - get selector: right click on element -> Copy -> Copy selector
 - testing CSS selectors in Console: `$$('selector')`
-- use English version!
 
 ### Prettier
 
@@ -126,4 +130,4 @@
 
 - run Prettier  
   `npx prettier --write .`
-- additionaly, VSC extension: **Prettier**
+- VSC extension: **Prettier**
