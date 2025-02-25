@@ -117,4 +117,37 @@ test.describe('Pulpit tests', () => {
       );
     },
   );
+
+  test(
+    'successful sideBar moble topup',
+    {
+      tag: ['@pulpit', '@integration', '@sideBar'],
+      annotation: [
+        {
+          type: 'Positive path',
+          description: 'Quick mobile topup',
+        },
+        {
+          type: 'Flaky test',
+          description:
+            'Fail due to instability of application (Jira: #1235 www.examplejira.com/issue=1235)',
+        },
+      ],
+    },
+    async ({ page }) => {
+      //Arrange
+      const topupAmount = '25';
+      const topupReceiver = '502 xxx xxx';
+      const expectedTopupMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${topupReceiver}`;
+
+      const initalBalance = await pulpitPage.moneyValue.innerText();
+      const expectedBalance = Number(initalBalance) - Number(topupAmount);
+
+      //Act
+      await pulpitPage.sideBar_topup(topupReceiver, topupAmount);
+
+      //Assert
+      await expect(pulpitPage.message).toHaveText(expectedTopupMessage);
+    },
+  );
 });

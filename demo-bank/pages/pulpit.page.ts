@@ -43,6 +43,15 @@ export class PulpitPage {
     await this.closeButton.click();
   }
 
+  async sideBar_topup(topupReceiver: string, topupAmount: string): Promise<void> {
+    await this.sideMenu.myPulpit_topup.click(); 
+    await this.topupReceiver.selectOption(topupReceiver);
+    await this.topupAmount.fill(topupAmount);
+    await this.topupAgreement.click();
+    await this.topupButton.click();
+    await this.closeButton.click();
+  }
+
   async quickTransfer(
     receiverId: string,
     transferAmount: string,
