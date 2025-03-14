@@ -27,4 +27,9 @@ export class PersonalAccountsPage {
     await this.personalAccounts.click();
     await this.dialogBox.click();
   }
+  async showAccountDetails(): Promise<void> {
+    //Act
+    await this.personalAccounts.click();
+    await this.dialogBox.click();
+  }
 }
