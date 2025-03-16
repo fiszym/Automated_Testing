@@ -5,12 +5,14 @@ import { ReportPage } from '../pages/report.page';
 
 test.describe('Report tests', () => {
   let reportPage: ReportPage;
+
   // All flaky tests in describe group will get 3 retry attempts.
   test.describe.configure({ retries: 3 });
 
   test.beforeEach(async ({ page }) => {
     //Arrange
     reportPage = new ReportPage(page);
+
     //Act
     await loginToService(page, loginData.userId, loginData.userPwd);
     await reportPage.sideMenu.report.click();
@@ -49,7 +51,6 @@ test.describe('Report tests', () => {
       ],
     },
     async ({ page }) => {
-
       const downloadPromise = page.waitForEvent('download');
       await reportPage.downloadReportZip();
       const download = await downloadPromise;
